@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Register xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/crm/2011/tools/pluginregistration">
   <Solutions>
-    <Solution Assembly="_0523PP_VS_Solution_Plugins.FollowupTask.dll" Id="e9cb997a-7b11-42bc-a99c-3322156a5eb0" IsolationMode="Sandbox" SourceType="Database">
+    <Solution Assembly="_0523PP_VS_Solution_Plugins.FollowupTask.dll" Id="bace1c34-adc9-45c7-a6fe-07ffd9d8bdf7" IsolationMode="Sandbox" SourceType="Database">
       <PluginTypes>
         <clear />
-        <Plugin Description="Plug-in to FollowupTaskCreate of account and " FriendlyName="FollowupTaskCreate of account and " Name="_0523PP_VS_Solution_Plugins.FollowupTask.FollowupTaskPostOperationaccountCreate" Id="09f3affe-3ba6-45eb-9319-a22eba4cda1a" TypeName="_0523PP_VS_Solution_Plugins.FollowupTask.FollowupTaskPostOperationaccountCreate">
+        <Plugin Description="Plug-in to FollowupTaskCreate of account and " FriendlyName="FollowupTaskCreate of account and " Name="_0523PP_VS_Solution_Plugins.FollowupTask.FollowupTaskPostOperationaccountCreate" Id="59339c05-3040-4221-b172-fe9129b78430" TypeName="_0523PP_VS_Solution_Plugins.FollowupTask.FollowupTaskPostOperationaccountCreate">
           <Steps>
             <clear />
-            <Step AsyncAutoDelete="true" Name="FollowupTaskCreate of account and " Description="Create of account" Id="9b75a50e-d5fa-ed11-8f6e-000d3aa191fe" ImpersonatingUserId="00000000-0000-0000-0000-000000000000" MessageName="Create" Mode="Asynchronous" PrimaryEntityName="account" Rank="1" Stage="PostOutsideTransaction" SupportedDeployment="ServerOnly" MessageEntityId="00000000-0000-0000-0000-000000000000">
+            <Step AsyncAutoDelete="true" Name="FollowupTaskCreate of account and " Description="Create of account" Id="077c988e-adfe-ed11-8f6d-000d3a9d67f2" ImpersonatingUserId="00000000-0000-0000-0000-000000000000" MessageName="Create" Mode="Asynchronous" PrimaryEntityName="account" Rank="1" Stage="PostOutsideTransaction" SupportedDeployment="ServerOnly" MessageEntityId="00000000-0000-0000-0000-000000000000">
+              <Images />
+            </Step>
+          </Steps>
+        </Plugin>
+        <Plugin Description="Plug-in to CheckDuplicateAccount" FriendlyName="CheckDuplicateAccount" Name="_0523PP_VS_Solution_Plugins.FollowupTask.PreValidationaccountCreate" Id="00000000-0000-0000-0000-000000000000" TypeName="_0523PP_VS_Solution_Plugins.FollowupTask.PreValidationaccountCreate">
+          <Steps>
+            <clear />
+            <Step AsyncAutoDelete="false" Name="CheckDuplicateAccount" Description="Create of account" Id="00000000-0000-0000-0000-000000000000" ImpersonatingUserId="00000000-0000-0000-0000-000000000000" MessageName="Create" Mode="Synchronous" PrimaryEntityName="account" Rank="1" Stage="PreOutsideTransaction" SupportedDeployment="ServerOnly" MessageEntityId="00000000-0000-0000-0000-000000000000">
+              <Images />
+            </Step>
+          </Steps>
+        </Plugin>
+        <Plugin Description="Plug-in to TaskCreatePreoperationCreate of account" FriendlyName="TaskCreatePreoperationCreate of account" Name="_0523PP_VS_Solution_Plugins.FollowupTask.PreOperationaccountCreate" Id="b968a146-6c7e-4502-bbf3-d6b42b386b1f" TypeName="_0523PP_VS_Solution_Plugins.FollowupTask.PreOperationaccountCreate">
+          <Steps>
+            <clear />
+            <Step AsyncAutoDelete="false" Name="TaskCreatePreoperationCreate of account" Description="Create of account" Id="3b475134-1d04-ee11-8f6d-000d3a55680e" ImpersonatingUserId="00000000-0000-0000-0000-000000000000" MessageName="Create" Mode="Synchronous" PrimaryEntityName="account" Rank="1" Stage="PreInsideTransaction" SupportedDeployment="ServerOnly" MessageEntityId="00000000-0000-0000-0000-000000000000">
               <Images />
             </Step>
           </Steps>
