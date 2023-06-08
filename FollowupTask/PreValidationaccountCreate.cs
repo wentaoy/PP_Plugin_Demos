@@ -44,92 +44,66 @@ namespace _0523PP_VS_Solution_Plugins.FollowupTask
         /// </param>
         /// <remarks>
         /// </remarks>
-        public class DuplicateCheckPreValidationaccountCreate : PluginBase
+        protected override void ExecuteCdsPlugin(ILocalPluginContext localContext)
         {
-            /// <summary>
-            /// Initializes a new instance of the <see cref="DuplicateCheckPreValidationaccountCreate"/> class.
-            /// </summary>
-            /// <param name="unsecure">Contains public (unsecured) configuration information.</param>
-            /// <param name="secure">Contains non-public (secured) configuration information.</param>
-            public DuplicateCheckPreValidationaccountCreate(string unsecure, string secure)
-                : base(typeof(DuplicateCheckPreValidationaccountCreate))
+            if (localContext == null)
             {
-
-                // TODO: Implement your custom configuration handling.
+                throw new InvalidPluginExecutionException(nameof(localContext));
             }
+            // Obtain the tracing service
+            ITracingService tracingService = localContext.TracingService;
 
-
-            /// <summary>
-            /// Main entry point for he business logic that the plug-in is to execute.
-            /// </summary>
-            /// <param name="localContext">The <see cref="LocalPluginContext"/> which contains the
-            /// <see cref="IPluginExecutionContext"/>,
-            /// <see cref="IOrganizationService"/>
-            /// and <see cref="ITracingService"/>
-            /// </param>
-            /// <remarks>
-            /// </remarks>
-            protected override void ExecuteCdsPlugin(ILocalPluginContext localContext)
+            try
             {
-                if (localContext == null)
+                // Obtain the execution context from the service provider.  
+                IPluginExecutionContext context = (IPluginExecutionContext)localContext.PluginExecutionContext;
+
+                // Obtain the organization service reference for web service calls.  
+                IOrganizationService currentUserService = localContext.CurrentUserService;
+
+                // TODO: Implement your custom Plug-in business logic.
+                // 检查是否为创建账户的消息
+                if (context.MessageName.Equals("Create") && context.PrimaryEntityName.Equals("account"))
                 {
-                    throw new InvalidPluginExecutionException(nameof(localContext));
-                }
-                // Obtain the tracing service
-                ITracingService tracingService = localContext.TracingService;
+                    // 获取账户记录的名称
+                    Entity account = (Entity)context.InputParameters["Target"];
+                    string accountName = account.GetAttributeValue<string>("name");
 
-                try
-                {
-                    // Obtain the execution context from the service provider.  
-                    IPluginExecutionContext context = (IPluginExecutionContext)localContext.PluginExecutionContext;
+                    // 验证账户名称的唯一性
+                    bool isUnique = CheckAccountNameUniqueness(currentUserService, accountName);
 
-                    // Obtain the organization service reference for web service calls.  
-                    IOrganizationService currentUserService = localContext.CurrentUserService;
-
-                    // TODO: Implement your custom Plug-in business logic.
-                    // 检查是否为创建账户的消息
-                    if (context.MessageName.Equals("Create") && context.PrimaryEntityName.Equals("account"))
+                    if (!isUnique)
                     {
-                        // 获取账户记录的名称
-                        Entity account = (Entity)context.InputParameters["Target"];
-                        string accountName = account.GetAttributeValue<string>("Name");
-
-                        // 验证账户名称的唯一性
-                        bool isUnique = CheckAccountNameUniqueness(currentUserService, accountName);
-
-                        if (!isUnique)
-                        {
-                            // 账户名称已存在，阻止账户的创建，并返回错误消息
-                            context.SharedVariables["ErrorMessage"] = "Account name already exists.";
-                            throw new InvalidPluginExecutionException("Account name already exists.");
-                        }
+                        // 账户名称已存在，阻止账户的创建，并返回错误消息
+                        context.SharedVariables["ErrorMessage"] = "Account name already exists.";
+                        throw new InvalidPluginExecutionException("Account name already exists.");
                     }
                 }
-
-                // Only throw an InvalidPluginExecutionException. Please Refer https://go.microsoft.com/fwlink/?linkid=2153829.
-                catch (Exception ex)
-                {
-                    tracingService?.Trace("An error occurred executing Plugin _0523PP_VS_Solution_Plugins.FollowupTask.PreValidationaccountCreate : {0}", ex.ToString());
-                    throw new InvalidPluginExecutionException("An error occurred executing Plugin _0523PP_VS_Solution_Plugins.FollowupTask.PreValidationaccountCreate .", ex);
-                }
             }
 
-            private bool CheckAccountNameUniqueness(IOrganizationService service, string accountName)
+            // Only throw an InvalidPluginExecutionException. Please Refer https://go.microsoft.com/fwlink/?linkid=2153829.
+            catch (Exception ex)
             {
-                // 检查账户名称唯一性的逻辑
-                // 可以使用查询表达式或FetchXML查询来检索系统中的账户名称，并判断是否存在重复
-                // 返回一个布尔值，指示账户名称是否唯一
-                QueryExpression query = new QueryExpression("account");
-                query.ColumnSet = new ColumnSet(new string[] { "Name" });
-                query.Criteria.AddCondition("Name", ConditionOperator.Equal, accountName);
-                EntityCollection collection = service.RetrieveMultiple(query);
-
-                if (collection.Entities.Count > 0)
-                {
-                    return false;
-                }
-                return true;
+                tracingService?.Trace("An error occurred executing Plugin _0523PP_VS_Solution_Plugins.FollowupTask.PreValidationaccountCreate : {0}", ex.ToString());
+                throw new InvalidPluginExecutionException("An error occur red executing Plugin _0523PP_VS_Solution_Plugins.FollowupTask.PreValidationaccountCreate", ex);
             }
+        }
+
+        private bool CheckAccountNameUniqueness(IOrganizationService service, string accountName)
+        {
+            // 检查账户名称唯一性的逻辑
+            // 可以使用查询表达式或FetchXML查询来检索系统中的账户名称，并判断是否存在重复
+            // 返回一个布尔值，指示账户名称是否唯一
+            QueryExpression query = new QueryExpression("account");
+            query.ColumnSet = new ColumnSet(new string[] { "name" });
+            query.Criteria.AddCondition("name", ConditionOperator.Equal, accountName);
+            EntityCollection collection = service.RetrieveMultiple(query);
+
+            if (collection.Entities.Count > 0)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
