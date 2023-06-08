@@ -12,18 +12,18 @@
             </Step>
           </Steps>
         </Plugin>
-        <Plugin Description="Plug-in to CheckDuplicateAccount" FriendlyName="CheckDuplicateAccount" Name="_0523PP_VS_Solution_Plugins.FollowupTask.PreValidationaccountCreate" Id="00000000-0000-0000-0000-000000000000" TypeName="_0523PP_VS_Solution_Plugins.FollowupTask.PreValidationaccountCreate">
-          <Steps>
-            <clear />
-            <Step AsyncAutoDelete="false" Name="CheckDuplicateAccount" Description="Create of account" Id="00000000-0000-0000-0000-000000000000" ImpersonatingUserId="00000000-0000-0000-0000-000000000000" MessageName="Create" Mode="Synchronous" PrimaryEntityName="account" Rank="1" Stage="PreOutsideTransaction" SupportedDeployment="ServerOnly" MessageEntityId="00000000-0000-0000-0000-000000000000">
-              <Images />
-            </Step>
-          </Steps>
-        </Plugin>
         <Plugin Description="Plug-in to TaskCreatePreoperationCreate of account" FriendlyName="TaskCreatePreoperationCreate of account" Name="_0523PP_VS_Solution_Plugins.FollowupTask.PreOperationaccountCreate" Id="b968a146-6c7e-4502-bbf3-d6b42b386b1f" TypeName="_0523PP_VS_Solution_Plugins.FollowupTask.PreOperationaccountCreate">
           <Steps>
             <clear />
             <Step AsyncAutoDelete="false" Name="TaskCreatePreoperationCreate of account" Description="Create of account" Id="3b475134-1d04-ee11-8f6d-000d3a55680e" ImpersonatingUserId="00000000-0000-0000-0000-000000000000" MessageName="Create" Mode="Synchronous" PrimaryEntityName="account" Rank="1" Stage="PreInsideTransaction" SupportedDeployment="ServerOnly" MessageEntityId="00000000-0000-0000-0000-000000000000">
+              <Images />
+            </Step>
+          </Steps>
+        </Plugin>
+        <Plugin Description="Plug-in to DuplicateCheckPreValidation" FriendlyName="DuplicateCheckPreValidation" Name="_0523PP_VS_Solution_Plugins.FollowupTask.PreValidationaccountCreate" Id="695a5c19-f5a1-44c2-8757-80758cf14adc" TypeName="_0523PP_VS_Solution_Plugins.FollowupTask.PreValidationaccountCreate">
+          <Steps>
+            <clear />
+            <Step AsyncAutoDelete="false" Name="DuplicateCheckPreValidation" Description="DuplicateCheckNameCreateofaccount" Id="726b6fb9-c605-ee11-8f6d-000d3a55680e" ImpersonatingUserId="00000000-0000-0000-0000-000000000000" MessageName="Create" Mode="Synchronous" PrimaryEntityName="account" Rank="1" Stage="PreOutsideTransaction" SupportedDeployment="ServerOnly" MessageEntityId="00000000-0000-0000-0000-000000000000">
               <Images />
             </Step>
           </Steps>
